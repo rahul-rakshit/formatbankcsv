@@ -22,11 +22,11 @@ var rootCmd = &cobra.Command{
 }
 
 func runMainCommand(cmd *cobra.Command, args []string) {
-	fmt.Printf("Input: %s\n", inputPath)
-	fmt.Printf("Output: %s\n", outputPath)
-	fmt.Printf("From: %s\n", fromDate)
-	fmt.Printf("To: %s\n", toDate)
-	fmt.Printf("Format: %s\n", format)
+	err := handleOptions(inputPath, outputPath, fromDate, toDate, format)
+
+	if err != nil {
+		os.Exit(1)
+	}
 }
 
 func init() {
