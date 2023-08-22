@@ -1,36 +1,25 @@
 package n26
 
 import (
-	"os"
-	"strings"
+	"rahul-rakshit/formatbankcsv/csv"
+	"testing"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	"github.com/stretchr/testify/assert"
 )
 
-var _ = Describe("formatN26", func() {
-	Context("In the happy path", func() {
-		It("it deletes a few columns from the input", func() {
-			sampleN26Csv, _ := os.ReadFile("./fixtures/sample_n26.csv")
-			sampleN26Lines := strings.Split(string(sampleN26Csv), "\n")
+func TestFormatN26_HappyPath(t *testing.T) {
+	sampleN26Data, _ := csv.ReadCsv("./fixtures/sample_n26.csv")
 
-			formatted, _ := FormatN26(sampleN26Lines)
+	formatted, _ := FormatN26(sampleN26Data)
 
-			expectedResultCsv, _ := os.ReadFile("./fixtures/expected_result.csv")
-			expectedResultLines := strings.Split(string(expectedResultCsv), "\n")
+	expectedResultCsv, _ := csv.ReadCsv("./fixtures/expected_result.csv")
+	assert.Equal(t, expectedResultCsv, formatted)
+}
 
-			Expect(formatted).To(Equal(expectedResultLines))
-		})
-	})
+func TestFormatN26_BadHeaderError(t *testing.T) {
+  badHeaderData, _ := csv.ReadCsv("./fixtures/bad_header_n26.csv")
 
-	Context("In the sad path", func() {
-		It("returns an error if the header string is unexpected", func() {
-			badHeaderCsv, _ := os.ReadFile("./fixtures/bad_header_n26.csv")
-			badHeaderLines := strings.Split(string(badHeaderCsv), "\n")
+  _, err := FormatN26(badHeaderData)
 
-      _, err := FormatN26(badHeaderLines)
-
-			Expect(err.Error()).To(Equal("Unexpected header for n26 format"))
-		})
-	})
-})
+  assert.Equal(t, "Unexpected header for n26 format", err.Error())
+}
