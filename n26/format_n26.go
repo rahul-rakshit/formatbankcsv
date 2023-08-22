@@ -2,15 +2,22 @@ package n26
 
 import (
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"strings"
 )
+
+const expectedInputHeader = "\"Date\",\"Payee\",\"Account number\",\"Transaction type\",\"Payment reference\",\"Amount (EUR)\",\"Amount (Foreign Currency)\",\"Type Foreign Currency\",\"Exchange Rate\""
 
 func FormatN26(inputLines []string) ([]string, error) {
 	outputLines := []string{"\"Date\",\"Vendor\",\"Reference\",\"Amount\""}
 
 	for index, inputLine := range inputLines {
 		if index == 0 {
+			if inputLine != expectedInputHeader {
+				return []string{}, errors.New("Unexpected header for n26 format")
+			}
+
 			continue
 		}
 
