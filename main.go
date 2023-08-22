@@ -25,7 +25,8 @@ func runMainCommand(cmd *cobra.Command, args []string) {
 	err := handleOptions(inputPath, outputPath, fromDate, toDate, format)
 
 	if err != nil {
-		os.Exit(1)
+    fmt.Println(err.Error())
+		os.Exit(2)
 	}
 }
 
