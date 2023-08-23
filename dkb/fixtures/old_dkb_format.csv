@@ -1,0 +1,9 @@
+"Kontonummer:";"DE12345678900987654321 / Girokonto";
+
+"Von:";"24.07.2023";
+"Bis:";"25.07.2023";
+"Kontostand vom 25.07.2023:";"1234,56 EUR";
+
+"Buchungstag";"Wertstellung";"Buchungstext";"Auftraggeber / Beg�nstigter";"Verwendungszweck";"Kontonummer";"BLZ";"Betrag (EUR)";"Gl�ubiger-ID";"Mandatsreferenz";"Kundenreferenz";
+"24.07.23";"24.07.23";"Online-Zahlung";"EVENTIM . TICKETS";"2023-07-24      Debitk.01 VISA Debit";"DE12345678900987654321";"BYLADEM1001";"-23,20";"";"";"1234567890"
+"24.07.23";"24.07.23";"Kartenzahlung";"Eis Ice Gelato";"2023-07-24      Debitk.01 VISA Debit";"DE12345678900987654321";"BYLADEM1001";"-2,50 €";"";"";"0987654321"
