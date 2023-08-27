@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func WriteCsv(data [][]string, outputPath string) error {
+func WriteCsv(data [][]string, outputPath string, delimiter string) error {
 	outputFile, err := os.Create(outputPath)
 	if err != nil {
 		return err
@@ -13,6 +13,7 @@ func WriteCsv(data [][]string, outputPath string) error {
 	defer outputFile.Close()
 
 	writer := csv.NewWriter(outputFile)
+  writer.Comma = rune(delimiter[0])
 	defer writer.Flush()
 
 	for _, row := range data {
@@ -22,5 +23,5 @@ func WriteCsv(data [][]string, outputPath string) error {
 		}
 	}
 
-  return nil
+	return nil
 }

@@ -8,18 +8,18 @@ import (
 )
 
 func TestFormatN26_HappyPath(t *testing.T) {
-	sampleN26Data, _ := csv.ReadCsv("./fixtures/sample_n26.csv")
+	sampleN26Data, _ := csv.ReadCsv("./fixtures/sample_n26.csv", ",", 0)
 
 	formatted, _ := FormatN26(sampleN26Data)
 
-	expectedResultCsv, _ := csv.ReadCsv("./fixtures/expected_result.csv")
+	expectedResultCsv, _ := csv.ReadCsv("./fixtures/expected_result.csv", ",", 0)
 	assert.Equal(t, expectedResultCsv, formatted)
 }
 
 func TestFormatN26_BadHeaderError(t *testing.T) {
-  badHeaderData, _ := csv.ReadCsv("./fixtures/bad_header_n26.csv")
+	badHeaderData, _ := csv.ReadCsv("./fixtures/bad_header_n26.csv", ",", 0)
 
-  _, err := FormatN26(badHeaderData)
+	_, err := FormatN26(badHeaderData)
 
-  assert.Equal(t, "Unexpected header for n26 format", err.Error())
+	assert.Equal(t, "Unexpected header for n26 format", err.Error())
 }
