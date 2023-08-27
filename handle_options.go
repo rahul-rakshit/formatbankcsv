@@ -1,26 +1,56 @@
 package main
 
 import (
-	// "fmt"
+	"errors"
 	"rahul-rakshit/formatbankcsv/csv"
+	"rahul-rakshit/formatbankcsv/dkb"
 	"rahul-rakshit/formatbankcsv/n26"
+	"rahul-rakshit/formatbankcsv/utils"
+	"strings"
 )
 
 func handleOptions(inputPath string, outputPath string, fromDate string, toDate string, format string) error {
-	// fmt.Printf("Input: %s\n", inputPath)
-	// fmt.Printf("Output: %s\n", outputPath)
-	// fmt.Printf("From: %s\n", fromDate)
-	// fmt.Printf("To: %s\n", toDate)
-	// fmt.Printf("Format: %s\n", format)
+	lowerCaseFormat := strings.ToLower(format)
+	if lowerCaseFormat != "dkb" && lowerCaseFormat != "n26" {
+		return errors.New("Format must be either \"dkb\" or \"n26\"")
+	}
 
-	data, readErr := csv.ReadCsv(inputPath, ",", 0)
-	if readErr != nil { return readErr }
+	var skipLines int
+  var delimiter string
+	if lowerCaseFormat == "n26" {
+		skipLines = n26.LinesToSkip
+    delimiter = n26.Delimiter
+	} else {
+		skipLines = dkb.LinesToSkip
+    delimiter = dkb.Delimiter
+	}
+	originalCsvData, readErr := csv.ReadCsv(inputPath, delimiter, skipLines)
+	if readErr != nil {
+		return readErr
+	}
 
-	formatted, formattingErr := n26.FormatN26(data)
-	if formattingErr != nil { return formattingErr }
+	var formatted [][]string
+	var formattingErr error
+	if lowerCaseFormat == "n26" {
+		formatted, formattingErr = n26.FormatN26(originalCsvData)
+	} else {
+		formatted, formattingErr = dkb.FormatDkb(originalCsvData)
+	}
+	if formattingErr != nil {
+		return formattingErr
+	}
 
-	writeErr := csv.WriteCsv(formatted, outputPath, ",")
-	if writeErr != nil { return writeErr }
+	filtered, filterErr := utils.FilterByDate(formatted, fromDate, toDate)
+	if filterErr != nil {
+		return filterErr
+	}
+
+	sorted := utils.SortByDate(filtered)
+
+	writeErr := csv.WriteCsv(sorted, outputPath, ",")
+	if writeErr != nil {
+		return writeErr
+	}
 
 	return nil
 }
