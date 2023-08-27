@@ -1,4 +1,4 @@
-package csv
+package utils
 
 func IsLineEqual(line1 []string, line2 []string) bool {
 	if len(line1) != len(line2) {

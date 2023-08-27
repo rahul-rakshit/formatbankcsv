@@ -3,7 +3,7 @@ package dkb
 import (
 	"errors"
 	"rahul-rakshit/formatbankcsv/constants"
-	"rahul-rakshit/formatbankcsv/csv"
+	"rahul-rakshit/formatbankcsv/utils"
 )
 
 func FormatDkb(inputLines [][]string) ([][]string, error) {
@@ -13,17 +13,28 @@ func FormatDkb(inputLines [][]string) ([][]string, error) {
 	}
 
 	for index, inputLine := range inputLines {
-		if index < 4 {
-			continue
-		}
-		if index == 4 {
-			if !csv.IsLineEqual(inputLine, expectedInputHeader) {
+		if index == 0 {
+			if !utils.IsLineEqual(inputLine, expectedInputHeader) {
 				return [][]string{}, errors.New("Unexpected header for dkb format")
 			}
 
 			continue
 		}
+
+		date, _ := convertDkbDate(inputLine[0])
+		reference := inputLine[5]
+		umsatztyp := inputLine[6]
+		amount, _ := convertDkbAmount(inputLine[7])
+		var vendor string
+
+		if umsatztyp == "Ausgang" {
+			vendor = inputLine[4]
+		} else {
+			vendor = inputLine[3]
+		}
+
+		outputLines = append(outputLines, []string{date, vendor, reference, amount})
 	}
 
-	return outputLines, nil
+	return utils.SortByDate(outputLines), nil
 }

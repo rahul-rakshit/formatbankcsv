@@ -3,7 +3,7 @@ package n26
 import (
 	"errors"
 	"rahul-rakshit/formatbankcsv/constants"
-	"rahul-rakshit/formatbankcsv/csv"
+	"rahul-rakshit/formatbankcsv/utils"
 )
 
 func FormatN26(inputLines [][]string) ([][]string, error) {
@@ -14,7 +14,7 @@ func FormatN26(inputLines [][]string) ([][]string, error) {
 
 	for index, inputLine := range inputLines {
 		if index == 0 {
-			if !csv.IsLineEqual(inputLine, expectedInputHeader) {
+			if !utils.IsLineEqual(inputLine, expectedInputHeader) {
 				return [][]string{}, errors.New("Unexpected header for n26 format")
 			}
 
