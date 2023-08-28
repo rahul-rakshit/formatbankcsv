@@ -5,12 +5,21 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 func convertDkbAmount(input string) (string, error) {
-	cleanedInput := strings.Replace(strings.TrimSuffix(input, " €"), ",", ".", -1)
+	var builder strings.Builder
 
-	value, err := strconv.ParseFloat(cleanedInput, 64)
+	for _, char := range input {
+		if unicode.IsDigit(char) || char == rune("-"[0]) {
+			builder.WriteRune(char)
+		} else if char == rune(","[0]) {
+			builder.WriteRune(rune("."[0]))
+		}
+	}
+
+	value, err := strconv.ParseFloat(builder.String(), 64)
 	if err != nil {
 		return "", errors.New("Failed to parse amount " + input)
 	}

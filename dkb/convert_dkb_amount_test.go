@@ -1,15 +1,16 @@
 package dkb
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestConvertDkbAmount_HappyPath(t *testing.T) {
-	input := "55,94 €"
+	input := "-55,94 €"
 
 	output, _ := convertDkbAmount(input)
-	expectedAmount := "55.94"
+	expectedAmount := "-55.94"
 
 	assert.Equal(t, expectedAmount, output)
 }
