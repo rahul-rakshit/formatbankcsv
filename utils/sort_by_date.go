@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"rahul-rakshit/formatbankcsv/constants"
+	"rahul-rakshit/formatbankcsv/output"
 	"sort"
 	"time"
 )
@@ -22,9 +22,9 @@ func SortByDate(input [][]string) [][]string {
 	}
 
 	sort.Slice(data, func(i, j int) bool {
-		if data[i].Date == constants.OutputHeader[0] {
+		if data[i].Date == output.Header[0] {
 			return true
-		} else if data[j].Date == constants.OutputHeader[0] {
+		} else if data[j].Date == output.Header[0] {
 			return false
 		}
 

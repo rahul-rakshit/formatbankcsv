@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"rahul-rakshit/formatbankcsv/constants"
+	"rahul-rakshit/formatbankcsv/output"
 	"time"
 )
 
@@ -25,7 +25,7 @@ func validateDates(row []string, fromDate string, toDate string) error {
 	layout := "2006-01-02"
 
 	_, rowDateErr := time.Parse(layout, row[0])
-	if rowDateErr != nil && row[0] != constants.OutputHeader[0] {
+	if rowDateErr != nil && row[0] != output.Header[0] {
 		return rowDateErr
 	}
 
@@ -43,7 +43,7 @@ func validateDates(row []string, fromDate string, toDate string) error {
 }
 
 func isHeaderRow(row []string) bool {
-	return row[0] == constants.OutputHeader[0]
+	return row[0] == output.Header[0]
 }
 
 func meetsFromDateBound(row []string, fromDateString string) bool {

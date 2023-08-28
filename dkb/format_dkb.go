@@ -2,14 +2,14 @@ package dkb
 
 import (
 	"errors"
-	"rahul-rakshit/formatbankcsv/constants"
+	"rahul-rakshit/formatbankcsv/output"
 	"rahul-rakshit/formatbankcsv/utils"
 )
 
-func FormatDkb(inputLines [][]string) ([][]string, error) {
+func formatDkb(inputLines [][]string) ([][]string, error) {
 	expectedInputHeader := []string{"Buchungsdatum", "Wertstellung", "Status", "Zahlungspflichtige*r", "Zahlungsempfänger*in", "Verwendungszweck", "Umsatztyp", "Betrag", "Gläubiger-ID", "Mandatsreferenz", "Kundenreferenz"}
 	outputLines := [][]string{
-		constants.OutputHeader,
+		output.Header,
 	}
 
 	for index, inputLine := range inputLines {

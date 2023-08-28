@@ -2,14 +2,14 @@ package n26
 
 import (
 	"errors"
-	"rahul-rakshit/formatbankcsv/constants"
+	"rahul-rakshit/formatbankcsv/output"
 	"rahul-rakshit/formatbankcsv/utils"
 )
 
 func FormatN26(inputLines [][]string) ([][]string, error) {
 	expectedInputHeader := []string{"Date", "Payee", "Account number", "Transaction type", "Payment reference", "Amount (EUR)", "Amount (Foreign Currency)", "Type Foreign Currency", "Exchange Rate"}
 	outputLines := [][]string{
-		constants.OutputHeader,
+		output.Header,
 	}
 
 	for index, inputLine := range inputLines {
