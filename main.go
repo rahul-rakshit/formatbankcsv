@@ -19,6 +19,7 @@ var rootCmd = &cobra.Command{
 	Use:   "formatbankcsv",
 	Short: "A command-line tool to format your bank's csv to Rana format",
 	Run:   runMainCommand,
+  Example: "formatbankcsv -F dkb -i ./dkb.csv -o output.csv -f 2023-04-01 -t 2023-06-30",
 }
 
 func runMainCommand(cmd *cobra.Command, args []string) {
