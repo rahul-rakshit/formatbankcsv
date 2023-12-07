@@ -7,7 +7,7 @@ import (
 )
 
 func formatDkb(inputLines [][]string) ([][]string, error) {
-	expectedInputHeader := []string{"Buchungsdatum", "Wertstellung", "Status", "Zahlungspflichtige*r", "Zahlungsempfänger*in", "Verwendungszweck", "Umsatztyp", "Betrag", "Gläubiger-ID", "Mandatsreferenz", "Kundenreferenz"}
+	expectedInputHeader := []string{"Buchungsdatum", "Wertstellung", "Status", "Zahlungspflichtige*r", "Zahlungsempfänger*in", "Verwendungszweck", "Umsatztyp", "IBAN", "Betrag (€)", "Gläubiger-ID", "Mandatsreferenz", "Kundenreferenz"}
 	outputLines := [][]string{
 		output.Header,
 	}
@@ -24,7 +24,7 @@ func formatDkb(inputLines [][]string) ([][]string, error) {
 		date, _ := convertDkbDate(inputLine[0])
 		reference := inputLine[5]
 		umsatztyp := inputLine[6]
-		amount, _ := convertDkbAmount(inputLine[7])
+		amount, _ := convertDkbAmount(inputLine[8])
 		var vendor string
 
 		if umsatztyp == "Ausgang" {

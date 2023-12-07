@@ -6,8 +6,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestConvertDkbAmount_HappyPath(t *testing.T) {
+func TestConvertDkbAmount_HappyPathWithCurrencySymbol(t *testing.T) {
 	input := "-55,94 €"
+
+	output, _ := convertDkbAmount(input)
+	expectedAmount := "-55.94"
+
+	assert.Equal(t, expectedAmount, output)
+}
+
+func TestConvertDkbAmount_HappyPathWithoutCurrencySymbol(t *testing.T) {
+	input := "-55,94"
 
 	output, _ := convertDkbAmount(input)
 	expectedAmount := "-55.94"
