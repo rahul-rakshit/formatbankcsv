@@ -7,26 +7,37 @@ import (
 )
 
 func FormatN26(inputLines [][]string) ([][]string, error) {
-	expectedInputHeader := []string{"Date", "Payee", "Account number", "Transaction type", "Payment reference", "Amount (EUR)", "Amount (Foreign Currency)", "Type Foreign Currency", "Exchange Rate"}
+	requiredColumns := []string{"Value Date", "Partner Name", "Payment Reference", "Amount (EUR)"}
+
+	header := inputLines[0]
+	if !utils.HasColumns(header, requiredColumns) {
+		return nil, errors.New("Unexpected header for n26 format")
+	}
+
+	columnIndices := make(map[string]int)
+	for i, col := range header {
+		columnIndices[col] = i
+	}
+
+	var requiredIndices []int
+	for _, col := range requiredColumns {
+		for i, headerCol := range header {
+			if headerCol == col {
+				requiredIndices = append(requiredIndices, i)
+				break
+			}
+		}
+	}
+
 	outputLines := [][]string{
 		output.Header,
 	}
-
-	for index, inputLine := range inputLines {
-		if index == 0 {
-			if !utils.IsLineEqual(inputLine, expectedInputHeader) {
-				return [][]string{}, errors.New("Unexpected header for n26 format")
-			}
-
-			continue
+	for _, row := range inputLines[1:] {
+		extractedRow := make([]string, len(requiredIndices))
+		for i, index := range requiredIndices {
+			extractedRow[i] = row[index]
 		}
-
-		date := inputLine[0]
-		vendor := inputLine[1]
-		reference := inputLine[4]
-		amount := inputLine[5]
-
-		outputLines = append(outputLines, []string{date, vendor, reference, amount})
+		outputLines = append(outputLines, extractedRow)
 	}
 
 	return outputLines, nil
