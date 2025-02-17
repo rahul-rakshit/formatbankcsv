@@ -1,6 +1,6 @@
 "Booking Date","Value Date","Partner Name","Partner Iban","Type","Payment Reference","Account Name","Amount (EUR)","Original Amount","Original Currency","Exchange Rate"
 "2022-04-01","2022-04-01","Rewe","","MasterCard Payment","-","MasterCard","-10.05","","",""
-"2022-04-02","2022-04-02","Heinz Soßenbert","DE10235100299012125940","Outgoing Transfer","For pizza last Friday","Outgoing Transfer","-10.05","","",""
+"2022-04-02","2022-04-03","Heinz Soßenbert","DE10235100299012125940","Outgoing Transfer","For pizza last Friday","Outgoing Transfer","-10.05","","",""
 "2022-04-03","2022-04-03","Amazon","","Online Purchase","Order #123456","Online Purchase","-50.00","","",""
 "2022-04-04","2022-04-04","Coffee Shop","","MasterCard Purchase","Cappuccino","MasterCard","-3.50","","",""
 "2022-04-05","2022-04-05","Salary Co.","DE10735110299047125936","Incoming Transfer","Monthly Salary","Incoming Transfer","1500.00","","",""

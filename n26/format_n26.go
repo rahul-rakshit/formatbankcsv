@@ -7,7 +7,7 @@ import (
 )
 
 func FormatN26(inputLines [][]string) ([][]string, error) {
-	requiredColumns := []string{"Value Date", "Partner Name", "Payment Reference", "Amount (EUR)"}
+	requiredColumns := []string{"Booking Date", "Partner Name", "Payment Reference", "Amount (EUR)"}
 
 	header := inputLines[0]
 	if !utils.HasColumns(header, requiredColumns) {
