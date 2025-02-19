@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "test": "deno test --allow-read --allow-write .",
+    "build": "deno run --allow-read --allow-write --allow-run build.ts"
+  },
+  "imports": {
+    "@std/expect": "jsr:@std/expect@1",
+    "@std/csv": "jsr:@std/csv@1",
+    "@std/testing/bdd": "jsr:@std/testing@1/bdd",
+    "@std/cli": "jsr:@std/cli@1"
+  }
+}
