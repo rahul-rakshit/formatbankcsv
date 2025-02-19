@@ -12,5 +12,5 @@ Optional:
   -t, --to      End date in yyyy-mm-dd format, inclusive
 
 Example:
-  deno run -A main.ts -F dkb -i ./dkb.csv -o output.csv -f 2023-04-01 -t 2023-06-30
+  formatbankcsv main.ts -F dkb -i ./dkb.csv -o output.csv -f 2023-04-01 -t 2023-06-30
 `;
