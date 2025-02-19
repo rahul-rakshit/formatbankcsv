@@ -42,6 +42,8 @@ async function compile(denoTarget: string, arch: string) {
   const compileProcess = new Deno.Command("deno", {
     args: [
       "compile",
+      "--allow-read",
+      "--allow-write",
       "--target",
       denoTarget,
       "--output",
